@@ -1,0 +1,230 @@
+@import "leaflet/dist/leaflet.css";
+.info-card {
+    ion-icon {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .connect-card {
+    text-align: center;
+  }
+  
+  .stat-card {
+    background: var(--ion-color-light);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    height: 100%;
+    
+    &.highlight {
+      background: rgba(var(--ion-color-primary-rgb), 0.1);
+      border: 1px solid var(--ion-color-primary);
+    }
+    
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    
+    p {
+      margin: 4px 0 0;
+      font-size: 0.8rem;
+    }
+  }
+  
+  ion-avatar {
+    width: 40px;
+    height: 40px;
+    background: rgba(var(--ion-color-primary-rgb), 0.1);
+    
+    img {
+      padding: 8px;
+      object-fit: contain;
+    }
+  }
+  
+  .block {
+    display: block;
+  }
+
+  .leaflet-container {
+  background: var(--ion-background-color);
+  
+  /* Optional - better mobile touch handling */
+  touch-action: auto !important;
+}
+
+.map-container {
+  height: 300px;
+  width: 100%;
+  
+  #map {
+    height: 100%;
+    width: 100%;
+    background: #f0f0f0;
+    
+    /* Fix for Ionic's overflow issues */
+    position: relative !important;
+    contain: none !important;
+  }
+}
+/* Full screen map styles */
+.map-modal-content {
+  --background: transparent;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  
+  .fullscreen-map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    
+    .leaflet-container {
+      background: var(--ion-background-color);
+    }
+  }
+  
+  .bin-details {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 1;
+  }
+}
+
+/* Regular map styles */
+.map-container {
+  height: 300px;
+  width: 100%;
+  position: relative;
+  
+  .leaflet-container {
+    height: 100%;
+    width: 100%;
+    background: var(--ion-background-color);
+  }
+}
+
+.map-modal-content {
+  --background: transparent;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  
+  .fullscreen-map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    
+    .leaflet-container {
+      background: var(--ion-background-color);
+    }
+  }
+  
+  .bin-details {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 1;
+  }
+}
+
+.fullscreen-map-container {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  
+  .leaflet-container {
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    
+    .leaflet-tile-container img {
+      min-width: 100% !important;
+      min-height: 100% !important;
+    }
+  }
+}
+
+.map-modal-content {
+  --background: transparent;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  
+  .fullscreen-map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  
+  .bin-details {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+}
+/* Add these styles to your existing SCSS */
+.bin-popup {
+  font-family: var(--ion-font-family);
+  padding: 10px;
+  min-width: 200px;
+  
+  h3 {
+    margin-top: 0;
+    color: var(--ion-color-primary);
+    font-size: 1.1rem;
+  }
+  
+  .capacity-display {
+    margin: 10px 0;
+    
+    .capacity-bar {
+      height: 8px;
+      background: var(--ion-color-success);
+      border-radius: 4px;
+      margin-top: 5px;
+      
+      &[style*="width:8"] {
+        background: var(--ion-color-danger);
+      }
+      &[style*="width:6"] {
+        background: var(--ion-color-warning);
+      }
+    }
+  }
+  
+  .last-updated {
+    font-size: 0.8rem;
+    color: var(--ion-color-medium);
+    margin-bottom: 0;
+  }
+}
+
+/* Add this to make popups look better on mobile */
+.leaflet-popup-content {
+  margin: 12px !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+}

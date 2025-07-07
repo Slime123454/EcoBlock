@@ -1,0 +1,33 @@
+.welcome-card {
+  ion-card-content {
+    p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+  }
+}
+
+.stat-card {
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  height: 100%;
+  
+  h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  
+  p {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+  }
+}
+
+.chart-container {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}

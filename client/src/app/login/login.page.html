@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="login">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        Welcome Back
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="login()">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input 
+              type="email" 
+              [(ngModel)]="email" 
+              name="email"
+              required
+              #emailField="ngModel"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input 
+              type="password" 
+              [(ngModel)]="password" 
+              name="password"
+              required
+              #passwordField="ngModel"
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          [disabled]="loginForm.invalid || isLoading"
+          class="ion-margin-top"
+        >Login
+          <ion-spinner *ngIf="isLoading"></ion-spinner>
+          <span *ngIf="!isLoading">Login</span>
+        </ion-button>
+      </form>
+
+      <div class="ion-text-center ion-margin-top">
+        <p>Don't have an account?</p>
+        <ion-button 
+          routerLink="/register" 
+          routerDirection="forward"
+          fill="clear"
+          (click)="navigateToRegister()"> <!-- Add click handler -->
+          Create Account
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

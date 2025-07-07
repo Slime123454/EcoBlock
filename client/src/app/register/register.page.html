@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="auth-card">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        <ion-icon name="person-add" slot="start"></ion-icon>
+        Join EcoBlock
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form #registerForm="ngForm" (ngSubmit)="register()">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input 
+              type="email" 
+              [(ngModel)]="email" 
+              name="email"
+              required
+              email
+              #emailField="ngModel"
+            ></ion-input>
+          </ion-item>
+          <ion-note *ngIf="emailField.invalid && emailField.touched" color="danger">
+            Valid email is required
+          </ion-note>
+
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input 
+              type="password" 
+              [(ngModel)]="password" 
+              name="password"
+              required
+              minlength="6"
+              #passwordField="ngModel"
+            ></ion-input>
+          </ion-item>
+          <ion-note *ngIf="passwordField.invalid && passwordField.touched" color="danger">
+            Minimum 6 characters
+          </ion-note>
+
+          <ion-item>
+            <ion-label position="floating">Confirm Password</ion-label>
+            <ion-input 
+              type="password" 
+              [(ngModel)]="confirmPassword" 
+              name="confirmPassword"
+              required
+              #confirmPasswordField="ngModel"
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          [disabled]="registerForm.invalid || isLoading"
+          class="ion-margin-top"
+        >
+          <ion-spinner *ngIf="isLoading" name="lines-sharp"></ion-spinner>
+          <span *ngIf="!isLoading">Create Account</span>
+        </ion-button>
+      </form>
+
+      <div class="auth-footer ion-text-center ion-margin-top">
+        <p>Already have an account?</p>
+        <ion-button 
+          fill="clear" 
+          routerLink="/login" 
+          routerDirection="back"
+          class="login-link"
+        >
+          Sign In
+          <ion-icon slot="end" name="arrow-back"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

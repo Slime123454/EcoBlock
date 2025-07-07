@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="camera" slot="start"></ion-icon>
+      Eco Product Scanner
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- ZXing Scanner View (Web) -->
+  <div class="scanner-container" *ngIf="scanActive && !(platform.is('capacitor'))">
+    <video #videoElement autoplay playsinline></video>
+    <div class="scanner-overlay">
+      <div class="scanner-frame"></div>
+      <div class="scanner-guide">Align QR code within frame</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Scan Eco Products</ion-card-title>
+      <ion-card-subtitle>Scan QR codes from eco-friendly products</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Permission Alert -->
+      <ion-alert 
+        *ngIf="showPermissionAlert" 
+        [isOpen]="showPermissionAlert" 
+        header="Camera Permission Required"
+        message="Please enable camera access in settings to scan products"
+        [buttons]="permissionAlertButtons"
+        (didDismiss)="onPermissionAlertDismiss()">
+      </ion-alert>
+
+      <!-- Scanner Interface -->
+      <div *ngIf="!scanActive && !capturedImage">
+        <ion-button 
+          expand="block" 
+          (click)="startScan()" 
+          [disabled]="isLoading"
+          class="scan-button">
+          <ion-icon name="camera" slot="start"></ion-icon>
+          {{ isLoading ? 'Loading...' : 'Scan Product QR' }}
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          (click)="selectFromGallery()" 
+          [disabled]="isLoading"
+          fill="outline"
+          class="gallery-button">
+          <ion-icon name="images" slot="start"></ion-icon>
+          Scan from Gallery
+        </ion-button>
+      </div>
+
+      <!-- Scan Preview and Results -->
+      <div class="scan-container" *ngIf="capturedImage">
+        <div class="scan-preview">
+          <img [src]="capturedImage" alt="Scanned product">
+          
+          <div class="scan-result" *ngIf="scannedProducts[0]?.name">
+            <h3>{{ scannedProducts[0].name }}</h3>
+            <p>{{ scannedProducts[0].brand }}</p>
+            
+            <div class="validation-status" [class.valid]="true"> <!-- Always valid now since we only show validated scans -->
+              <ion-icon 
+                name="checkmark-circle" 
+                color="success">
+              </ion-icon>
+              <span>Validated</span>
+            </div>
+            
+            <ion-badge color="success">+{{ scannedProducts[0].points }} Eco Points</ion-badge>
+            
+            <div class="product-meta">
+              <ion-chip color="primary" *ngIf="scannedProducts[0]?.barcode">
+                <ion-icon name="barcode" color="primary"></ion-icon>
+                <ion-label>Barcode: {{ scannedProducts[0]?.barcode }}</ion-label>
+              </ion-chip>
+              <ion-chip>
+                <ion-icon name="star" color="warning"></ion-icon>
+                <ion-label>{{ (scannedProducts[0]?.rating || 4.0) }}/5</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="scannedProducts[0]?.productId">
+                <ion-icon name="finger-print" color="medium"></ion-icon>
+                <ion-label>ID: {{ scannedProducts[0]?.productId | shortenId }}</ion-label>
+              </ion-chip>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-buttons">
+          <ion-button expand="block" color="success" (click)="confirmScan()">
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            Confirm & Save
+          </ion-button>
+          
+          <ion-button expand="block" color="danger" fill="outline" (click)="retryScan()">
+            <ion-icon name="close-circle" slot="start"></ion-icon>
+            Try Again
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Scan History -->
+      <ion-list *ngIf="scannedProducts.length > 0">
+        <ion-list-header>
+          <ion-label>Scan History</ion-label>
+          <ion-badge color="primary">{{ totalEcoPoints }} Total Points</ion-badge>
+        </ion-list-header>
+        
+        <ion-item *ngFor="let product of scannedProducts" class="history-item">
+          <ion-thumbnail slot="start">
+            <img [src]="product.image || 'assets/images/default-product.png'" [alt]="product.name">
+          </ion-thumbnail>
+          
+          <ion-label>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.brand }}</p>
+            <ion-note>{{ product.date | date:'medium' }}</ion-note>
+          </ion-label>
+          
+          <ion-badge slot="end" color="success">+{{ product.points }}</ion-badge>
+        </ion-item>
+      </ion-list>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="scannedProducts.length === 0 && !capturedImage">
+        <ion-icon name="camera-outline" color="medium"></ion-icon>
+        <ion-text color="medium">
+          <p>Scan an eco-friendly product QR to earn points!</p>
+          <p>Try scanning:</p>
+          <ul>
+            <li>Reusable product packaging</li>
+            <li>Organic certification labels</li>
+            <li>EcoBlock partner QR codes</li>
+          </ul>
+        </ion-text>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

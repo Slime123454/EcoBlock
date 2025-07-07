@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>EcoBlock Network</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Welcome Section -->
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-title>Welcome to EcoBlock Network</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>EcoBlock Network is a decentralized platform that rewards sustainable actions. 
+      Scan eco-friendly products, trade renewable energy, and earn tokens for recycling - 
+      all while contributing to a greener planet.</p>
+      
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let stat of quickStats">
+            <div class="stat-card">
+              <ion-text color="primary"><h2>{{stat.value}}</h2></ion-text>
+              <ion-text color="medium"><p>{{stat.label}}</p></ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Energy Price Graph -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Renewable Energy Pricing</ion-card-title>
+      <ion-card-subtitle>Current market rates (EBT/kWh)</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="chart-container">
+        <canvas #energyChart></canvas>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Action Buttons -->
+  <ion-card button routerLink="/energy-trading">
+    <ion-card-header>
+      <ion-icon name="flash" slot="start"></ion-icon>
+      <ion-card-title>Energy Trading</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Trade renewable energy with neighbors
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card button routerLink="/recycle-rewards">
+    <ion-card-header>
+      <ion-icon name="reload-circle" slot="start"></ion-icon>
+      <ion-card-title>Recycle Rewards</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Earn tokens for recycling
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

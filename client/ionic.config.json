@@ -1,0 +1,7 @@
+{
+  "name": "EcoBlockcopy",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

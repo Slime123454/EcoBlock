@@ -1,0 +1,28 @@
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .profile-picture-container {
+    margin: 20px 0;
+    
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 10px;
+      
+      img {
+        border: 3px solid var(--ion-color-primary);
+      }
+    }
+  }
+  
+  ion-card {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  ion-button[color="danger"] {
+    --border-color: var(--ion-color-danger);
+  }

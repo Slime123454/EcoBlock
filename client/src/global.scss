@@ -1,0 +1,150 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+@import "leaflet/dist/leaflet.css";
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+ion-toolbar {
+    --ion-toolbar-title-color: var(--ion-color-primary-contrast);
+    --ion-toolbar-title-font-size: 1.2rem;
+    --ion-toolbar-title-font-weight: 500;
+    --ion-toolbar-title-text-align: center;
+    --ion-toolbar-title-padding-start: 50px;
+    --ion-toolbar-title-padding-end: 50px;
+  }
+
+  ion-router-outlet {
+    & > * {
+      animation: fadeIn 0.3s ease-out;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Optional: Add transition for back navigation */
+  ion-nav {
+    --ion-transition: all 0.3s ease;
+  }
+
+  /* Default transition for all pages */
+ion-router-outlet > * {
+    animation: fadeInUp 300ms cubic-bezier(0.36,0.66,0.04,1) forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Special case for profile page */
+  [data-animation="profileTransition"] {
+    animation: profileEnter 400ms cubic-bezier(0.25,0.8,0.25,1) forwards;
+  }
+  
+  @keyframes profileEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  /* Default transition for all pages */
+ion-router-outlet > * {
+    animation: fadeIn 300ms ease-out forwards;
+  }
+  
+  /* Special transition for profile page */
+  .profile-page-enter {
+    animation: profileEnter 400ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  }
+  
+  /* Animation definitions */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes profileEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Optional: Back transition */
+  .back-transition {
+    animation: fadeOut 250ms ease-in forwards;
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+
+  

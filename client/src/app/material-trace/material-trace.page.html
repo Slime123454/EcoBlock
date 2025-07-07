@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Material Trace</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Material Traceability</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <!-- Connection Status -->
+      <div *ngIf="!isConnected" class="connect-prompt">
+        <ion-button expand="block" color="primary" (click)="connectWallet()">
+          Connect Wallet
+        </ion-button>
+      </div>
+
+      <!-- Main Content -->
+      <div *ngIf="isConnected">
+        <!-- Material ID Input -->
+        <ion-item>
+          <ion-label position="stacked">Material ID</ion-label>
+          <ion-input [(ngModel)]="materialId" placeholder="Enter material ID"></ion-input>
+        </ion-item>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <ion-button expand="block" (click)="fetchMaterialHistory()" [disabled]="!materialId || isLoading">
+            <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+            Trace Material
+          </ion-button>
+
+          <ion-button expand="block" color="secondary" (click)="registerMaterial()" [disabled]="!materialId || isLoading">
+            <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+            Register New Material
+          </ion-button>
+        </div>
+
+        <!-- History List -->
+        <ion-list *ngIf="materialHistory.length > 0">
+          <ion-item>
+            <ion-label class="history-header">Material History</ion-label>
+          </ion-item>
+          
+          <ion-item *ngFor="let record of materialHistory">
+            <ion-label>
+              <h3>{{ record.action || 'Transaction' }}</h3>
+              <p>{{ formatTimestamp(record.timestamp) }}</p>
+              <p *ngIf="record.data">{{ record.data | json }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,29 @@
+/* Complete dark mode override */
+:root {
+    /* Status bar colors */
+    --ion-statusbar-padding: 20px;
+  
+    /* Tab bar */
+    --ion-tab-bar-background: #1a1a1a;
+    --ion-tab-bar-color: #92949c;
+    --ion-tab-bar-color-activated: var(--ion-color-primary);
+  
+    /* Override any component-specific variables */
+    ion-alert, ion-action-sheet, ion-loading, ion-modal, ion-popover {
+      --backdrop-opacity: 0.8;
+      --background: var(--ion-card-background);
+      --color: var(--ion-text-color);
+    }
+  
+    /* Fix for iOS specific elements */
+    .ios {
+      --ion-background-color: #121212;
+      --ion-toolbar-background: #1a1a1a;
+    }
+  
+    /* Fix for MD specific elements */
+    .md {
+      --ion-background-color: #121212;
+      --ion-toolbar-background: #1a1a1a;
+    }
+  }

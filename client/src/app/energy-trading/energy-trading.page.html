@@ -1,0 +1,143 @@
+<ion-header class="eco-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="flash" slot="start"></ion-icon>
+      Energy Trading
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="eco-content">
+  <!-- Test Mode Indicator -->
+
+  <!-- Connection Status Card -->
+  <ion-card class="animate-fade">
+    <ion-card-header>
+      <ion-card-title>Wallet Status</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="flex-center" *ngIf="!blockchain.isConnected">
+        <ion-button expand="block" color="primary" (click)="connectWallet()">
+          <ion-icon name="wallet" slot="start"></ion-icon>
+          Connect Wallet
+        </ion-button>
+        
+        <div class="wallet-instructions" *ngIf="connectionError">
+          <p class="error-message">{{ connectionError }}</p>
+          <div *ngIf="connectionError.includes('install MetaMask')">
+            <p>Don't have MetaMask?</p>
+            <ion-button fill="clear" (click)="installMetaMask()">
+              <ion-icon name="open-outline" slot="start"></ion-icon>
+              Install MetaMask
+            </ion-button>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="blockchain.isConnected" class="wallet-connected">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="assets/images/wallet-avatar.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>Connected Wallet</h2>
+            <p>{{ blockchain.walletAddress | shortenAddress }}</p>
+          </ion-label>
+          <ion-badge color="success">Online</ion-badge>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Energy Marketplace -->
+  <ion-card class="animate-fade" *ngIf="blockchain.isConnected">
+    <ion-card-header>
+      <ion-card-title>Energy Marketplace</ion-card-title>
+      <ion-card-subtitle>Buy renewable energy from other users</ion-card-subtitle>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-segment [(ngModel)]="selectedSegment">
+        <ion-segment-button value="all">
+          <ion-label>All</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="solar">
+          <ion-icon name="sunny"></ion-icon>
+          <ion-label>Solar</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="wind">
+          <ion-icon name="flag"></ion-icon>
+          <ion-label>Wind</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-list lines="none">
+        <ion-item *ngFor="let listing of filterListings()" class="listing-item">
+          <ion-avatar slot="start">
+            <img [src]="'assets/images/' + listing.energyType + '-icon.png'"
+                 onerror="this.src='assets/images/default-energy-icon.png'">
+          </ion-avatar>
+          
+          <ion-label>
+            <h2>{{ listing.amount }} kWh {{ listing.energyType | titlecase }} Energy</h2>
+            <p>{{ listing.price }} EBT/kWh • {{ listing.location }}</p>
+            <ion-note>{{ formatTimestamp(listing.timestamp) }}</ion-note>
+          </ion-label>
+          
+          <ion-button fill="outline" slot="end" (click)="buyEnergy(listing)" [disabled]="isProcessing">
+            Buy
+            <ion-spinner *ngIf="isProcessing" name="crescent"></ion-spinner>
+          </ion-button>
+        </ion-item>
+
+        <!-- Empty State -->
+        <div *ngIf="listings.length === 0" class="empty-state ion-text-center ion-padding">
+          <ion-icon name="flash-off" size="large" color="medium"></ion-icon>
+          <ion-text color="medium">
+            <p>No energy listings available yet</p>
+            <p>Be the first to list your renewable energy!</p>
+          </ion-text>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- List Energy Panel -->
+  <ion-card class="animate-fade" *ngIf="blockchain.isConnected">
+    <ion-card-header>
+      <ion-card-title>List Your Energy</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label position="stacked">Energy Type</ion-label>
+          <ion-select [(ngModel)]="energyType" interface="popover">
+            <ion-select-option value="solar">Solar</ion-select-option>
+            <ion-select-option value="wind">Wind</ion-select-option>
+            <ion-select-option value="hydro">Hydro</ion-select-option>
+          </ion-select>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Amount (kWh)</ion-label>
+          <ion-input type="number" [(ngModel)]="energyAmount" min="0" step="0.1"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Price per kWh (EBT)</ion-label>
+          <ion-input type="number" [(ngModel)]="pricePerUnit" min="0" step="0.01"></ion-input>
+        </ion-item>
+      </ion-list>
+      
+      <ion-button expand="block" color="primary" (click)="listEnergyForSale()" [disabled]="isProcessing">
+        <ion-icon name="add-circle" slot="start"></ion-icon>
+        {{ isProcessing ? 'Processing...' : 'List Energy' }}
+        <ion-spinner *ngIf="isProcessing" name="crescent"></ion-spinner>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

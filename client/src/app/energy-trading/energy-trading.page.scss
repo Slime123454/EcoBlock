@@ -1,0 +1,130 @@
+/* Energy Trading Page Specific Styles */
+.eco-header {
+  ion-toolbar {
+    --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    
+    ion-title {
+      display: flex;
+      align-items: center;
+      ion-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.listing-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  background: rgba(var(--ion-color-light-rgb), 0.2);
+  
+  &:hover {
+    transform: translateX(4px);
+  }
+  
+  ion-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(var(--ion-color-primary-rgb), 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+    }
+  }
+  
+  ion-label {
+    h2 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    p {
+      color: var(--ion-color-medium);
+      font-size: 0.9rem;
+    }
+    
+    ion-note {
+      font-size: 0.8rem;
+      color: var(--ion-color-primary);
+    }
+  }
+}
+
+.wallet-connected {
+  ion-item {
+    --background: transparent;
+    
+    ion-avatar {
+      background: rgba(var(--ion-color-primary-rgb), 0.1);
+      padding: 8px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    
+    ion-badge {
+      margin-left: 8px;
+    }
+  }
+}
+
+.error-message {
+  color: var(--ion-color-danger);
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.wallet-instructions {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(var(--ion-color-light-rgb), 0.2);
+  border-radius: 8px;
+  text-align: center;
+
+  .error-message {
+    color: var(--ion-color-danger);
+    margin-bottom: 10px;
+  }
+
+  ion-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    margin-top: 8px;
+  }
+}
+
+.empty-state {
+  padding: 20px;
+  text-align: center;
+  
+  ion-icon {
+    font-size: 48px;
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+    margin: 4px 0;
+  }
+}
+
+.animate-fade {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

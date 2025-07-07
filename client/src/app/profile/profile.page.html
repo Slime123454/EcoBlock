@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Your Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="profile-container">
+    <!-- Profile Picture Section -->
+    <div class="profile-picture-container ion-text-center">
+      <ion-avatar class="profile-avatar">
+        <img [src]="profileImage" alt="Your profile picture" />
+      </ion-avatar>
+      <ion-button fill="clear" (click)="changeProfilePicture()">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Change Photo
+      </ion-button>
+    </div>
+
+    <!-- User Information Section -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Account Information</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-icon name="person" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h3>Username</h3>
+            <p>{{ userName || 'Not set' }}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h3>Email</h3>
+            <p>{{ userEmail }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Wallet Connection Section -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Wallet Connection</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-icon name="wallet" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h3>Wallet Status</h3>
+            <p *ngIf="walletAddress">{{ walletAddress | shortenAddress }}</p>
+            <p *ngIf="!walletAddress">Not connected</p>
+          </ion-label>
+          <ion-badge [color]="walletAddress ? 'success' : 'warning'">
+            {{ walletAddress ? 'Connected' : 'Disconnected' }}
+          </ion-badge>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          color="danger" 
+          (click)="disconnectWallet()"
+          *ngIf="walletAddress"
+          class="ion-margin-top"
+        >
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          Disconnect Wallet
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          color="primary" 
+          (click)="connectWallet()"
+          *ngIf="!walletAddress"
+          class="ion-margin-top"
+        >
+          <ion-icon name="wallet" slot="start"></ion-icon>
+          Connect Wallet
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Token Balances Section -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Your Tokens</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="assets/images/ecoblock-token.png" alt="EBT Token">
+          </ion-avatar>
+          <ion-label>
+            <h3>EcoBlock Tokens</h3>
+            <p>EBT Balance</p>
+          </ion-label>
+          <ion-badge color="primary">{{ ebtBalance }} EBT</ion-badge>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="assets/images/hbar-token.png" alt="HBAR Token">
+          </ion-avatar>
+          <ion-label>
+            <h3>HBAR Tokens</h3>
+            <p>Hedera Balance</p>
+          </ion-label>
+          <ion-badge color="success">{{ hbarBalance }} HBAR</ion-badge>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Account Actions Section -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Account Actions</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="block" fill="clear" (click)="changePassword()">
+          <ion-icon name="key" slot="start"></ion-icon>
+          Change Password
+        </ion-button>
+        
+        <ion-button expand="block" fill="clear" color="danger" (click)="logout()">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          Sign Out
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
