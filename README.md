@@ -21,8 +21,8 @@ Once your environment is set up, follow these steps:
 
     Example `contract/.env`:
     ```
-    METAMASK_PRIVATE_KEY=your_private_key_here
-    METAMASK_API_URL=your_metamask_api_url_here
+    PRIVATE_KEY=your-private-key
+    SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_key
     ```
 
 2.  **Install Dependencies**: Open your terminal and run `npm install --legacy-peer-deps` in the following directories:
