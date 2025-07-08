@@ -17,15 +17,15 @@ Before you begin, ensure you have the following environment set up:
 
 Once your environment is set up, follow these steps:
 
-1.  **Configure Metamask Wallet**: create a connection on the `contract/.env` file within the project directory. Add your Metamask wallet private key and a URL for the Metamask API development key.
+1.  **Configure Metamask Wallet**: create a connection on the `contracts/.env` file within the project directory. Add your Metamask wallet private key and a URL for the Metamask API development key.
 
-    Example `contract/.env`:
+    Example `contracts/.env`:
     ```
     PRIVATE_KEY=your-private-key
     SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_key
     ```
 
-2.  **Configure server database**: create a connection on the `contract/.env` file within the project directory. Add your mongoDB connection link and port into the file.
+2.  **Configure server database**: create a connection on the `server/.env` file within the project directory. Add your mongoDB connection link and port into the file.
 
     Example `server/.env`:
     ```
