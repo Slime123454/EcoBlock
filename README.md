@@ -17,7 +17,7 @@ Before you begin, ensure you have the following environment set up:
 
 Once your environment is set up, follow these steps:
 
-1.  **Configure Metamask Wallet**: Navigate to the `contract/.env` file within the project directory. Add your Metamask wallet private key and a URL for the Metamask API development key.
+1.  **Configure Metamask Wallet**: create a connection on the `contract/.env` file within the project directory. Add your Metamask wallet private key and a URL for the Metamask API development key.
 
     Example `contract/.env`:
     ```
@@ -25,7 +25,16 @@ Once your environment is set up, follow these steps:
     SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_key
     ```
 
-2.  **Install Dependencies**: Open your terminal and run `npm install --legacy-peer-deps` in the following directories:
+2.  **Configure server database**: create a connection on the `contract/.env` file within the project directory. Add your mongoDB connection link and port into the file.
+
+    Example `server/.env`:
+    ```
+    MONGO_URI=your_mongodb_connection
+    JWT_SECRET=your_jwt_secret_here
+    PORT=5000
+    ```
+
+3.  **Install Dependencies**: Open your terminal and run `npm install --legacy-peer-deps` in the following directories:
     *   `client/`
     *   `server/`
     *   The root of the project (`./`)
